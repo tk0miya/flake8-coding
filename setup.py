@@ -26,7 +26,6 @@ setup(
     keywords='pep8 flake8 coding',
     py_modules=['flake8_coding'],
     install_requires=[
-        'setuptools',
         'flake8',
     ],
     entry_points={
