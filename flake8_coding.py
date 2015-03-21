@@ -29,7 +29,7 @@ class CodingChecker(object):
             # PEP-263 says: a magic comment must be placed into the source
             #               files either as first or second line in the file
             for lineno in range(1, 3):
-                matched = re.search('coding: (\S+)', f.readline(), re.IGNORECASE)
+                matched = re.search('coding[:=]\s*([-\w.]+)', f.readline(), re.IGNORECASE)
                 if matched:
                     if matched.group(1).lower() not in self.encodings:
                         yield lineno, 0, "C102 Unknown encoding found in coding magic comment", type(self)
