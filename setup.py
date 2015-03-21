@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from setuptools import setup
+from flake8_coding import __version__
 
 
 setup(
     name='flake8-coding',
-    version='0.1.0',
+    version=__version__,
     description='Adds coding magic comment checks to flake8',
     long_description=open("README.rst").read(),
     classifiers=[
