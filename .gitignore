@@ -1,6 +1,7 @@
 *.egg-info
 *.pyc
 
+.tox/
 bin/
 include/
 lib/
