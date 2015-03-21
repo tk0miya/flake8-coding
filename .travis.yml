@@ -8,5 +8,5 @@ env:
     - TOXENV=py34
     - TOXENV=coverage
 
-install: pip install tox
+install: pip install docutils tox
 script: tox
