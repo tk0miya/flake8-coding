@@ -18,7 +18,7 @@ class CodingChecker(object):
             '--accept-encodings', default='latin-1, utf-8', action='store',
             help="Acceptable source code encodings for `coding:` magic comment"
         )
-        parser.config_options.append('accpet-encodings')
+        parser.config_options.append('accept-encodings')
 
     @classmethod
     def parse_options(cls, options):

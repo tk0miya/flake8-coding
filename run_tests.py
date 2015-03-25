@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
+import sys
 import unittest
 from flake8_coding import CodingChecker
+from flake8.engine import get_style_guide
 
 
 class TestFlake8Coding(unittest.TestCase):
@@ -55,6 +57,28 @@ class TestFlake8Coding(unittest.TestCase):
         self.assertEqual(ret[0][0], 0)
         self.assertEqual(ret[0][1], 0)
         self.assertTrue(ret[0][2].startswith('C101 '))
+
+    def test_default_encoding(self):
+        try:
+            _argv = sys.argv
+            sys.argv = []
+            get_style_guide(parse_argv=True)  # parse arguments
+            self.assertEqual(CodingChecker.encodings, ['latin-1', 'utf-8'])
+        finally:
+            sys.argv = _argv
+            if hasattr(CodingChecker, 'encodings'):
+                del CodingChecker.encodings
+
+    def test_change_encoding(self):
+        try:
+            _argv = sys.argv
+            sys.argv = ['', '--accept-encodings=utf-8,utf-16']
+            get_style_guide(parse_argv=True)  # parse arguments
+            self.assertEqual(CodingChecker.encodings, ['utf-8', 'utf-16'])
+        finally:
+            sys.argv = _argv
+            if hasattr(CodingChecker, 'encodings'):
+                del CodingChecker.encodings
 
 
 if __name__ == '__main__':
