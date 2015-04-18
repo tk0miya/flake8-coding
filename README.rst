@@ -7,9 +7,10 @@ Flake8 Coding plugin
 .. image:: https://coveralls.io/repos/tk0miya/flake8-coding/badge.png?branch=master
    :target: https://coveralls.io/r/tk0miya/flake8-coding?branch=master
 
-.. image:: https://pypip.in/wheel/flake8-coding/badge.png
-   :target: https://pypi.python.org/pypi/flake8-coding/
-   :alt: Wheel Status
+.. image:: https://codeclimate.com/github/tk0miya/flake8-coding/badges/gpa.svg
+   :target: https://codeclimate.com/github/tk0miya/flake8-coding
+   :alt: Code Climate
+   
 
 Checks for coding magic comment (``coding:``) in all python files.
 
