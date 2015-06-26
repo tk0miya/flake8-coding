@@ -13,6 +13,12 @@ class TestFlake8Coding(unittest.TestCase):
         ret = list(checker.run())
         self.assertEqual(ret, [])
 
+    def test_empty_file(self):
+        checker = CodingChecker(None, 'testsuite/empty.py')
+        checker.encodings = ['latin-1', 'utf-8']
+        ret = list(checker.run())
+        self.assertEqual(ret, [])
+
     def test_has_latin1_coding_header(self):
         checker = CodingChecker(None, 'testsuite/latin1.py')
         checker.encodings = ['latin-1', 'utf-8']

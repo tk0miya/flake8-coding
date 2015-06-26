@@ -28,8 +28,12 @@ class CodingChecker(object):
         with open(self.filename) as f:
             # PEP-263 says: a magic comment must be placed into the source
             #               files either as first or second line in the file
-            for lineno in range(1, 3):
-                matched = re.search('coding[:=]\s*([-\w.]+)', f.readline(), re.IGNORECASE)
+            lines = f.readlines()[:2]
+            if len(lines) == 0:
+                raise StopIteration()
+
+            for lineno, line in enumerate(lines, start=1):
+                matched = re.search('coding[:=]\s*([-\w.]+)', line, re.IGNORECASE)
                 if matched:
                     if matched.group(1).lower() not in self.encodings:
                         yield lineno, 0, "C102 Unknown encoding found in coding magic comment", type(self)
