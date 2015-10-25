@@ -13,6 +13,12 @@ class TestFlake8Coding(unittest.TestCase):
         ret = list(checker.run())
         self.assertEqual(ret, [])
 
+    def test_file_not_found(self):
+        checker = CodingChecker(None, 'file_not_found')
+        checker.encodings = ['latin-1', 'utf-8']
+        ret = list(checker.run())
+        self.assertEqual(ret, [])
+
     def test_empty_file(self):
         checker = CodingChecker(None, 'testsuite/empty.py')
         checker.encodings = ['latin-1', 'utf-8']
