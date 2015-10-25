@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.1.1 (2015-10-25)
+------------------
+* Fix a bug
+
+  - Fix #2 ignore errors if target file is not found
+
 1.1.0 (2015-06-27)
 ------------------
 * Do not warn for empty file (Thanks to gforcada)
