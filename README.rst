@@ -28,6 +28,9 @@ accept-encodings
     Acceptable source code encodings for ``coding:`` magic comment.
     Default is ``latin-1, utf-8``.
 
+no-accept-encodings
+    If set, will warn for files containing a ``coding:`` magic comment.
+
 Requirements
 -------------
 

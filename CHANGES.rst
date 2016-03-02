@@ -3,6 +3,7 @@ Changelog
 
 1.1.2 (not released yet)
 ------------------------
+* Add option `no-accept-encodings`. If set, will warn for files containing a `coding:` magic comment.
 * Fix a bug
 
   - #4 stdin not supported
