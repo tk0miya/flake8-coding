@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import re
+import pep8
 
 __version__ = '1.1.1'
 
@@ -24,12 +25,17 @@ class CodingChecker(object):
     def parse_options(cls, options):
         cls.encodings = [e.strip().lower() for e in options.accept_encodings.split(',')]
 
+    def read_headers(self):
+        if self.filename in ('stdin', '-', None):
+            return pep8.stdin_get_value().splitlines(True)[:2]
+        else:
+            return pep8.readlines(self.filename)[:2]
+
     def run(self):
         try:
-            with open(self.filename) as f:
                 # PEP-263 says: a magic comment must be placed into the source
                 #               files either as first or second line in the file
-                lines = f.readlines()[:2]
+                lines = self.read_headers()
                 if len(lines) == 0:
                     raise StopIteration()
 

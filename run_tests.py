@@ -2,6 +2,7 @@
 
 import sys
 import unittest
+from mock import patch
 from flake8_coding import CodingChecker
 from flake8.engine import get_style_guide
 
@@ -91,6 +92,19 @@ class TestFlake8Coding(unittest.TestCase):
             sys.argv = _argv
             if hasattr(CodingChecker, 'encodings'):
                 del CodingChecker.encodings
+
+    @patch('pep8.stdin_get_value')
+    def test_stdin(self, stdin_get_value):
+        stdin_get_value.return_value = open('testsuite/nocodings.py').read()
+
+        for input in ['stdin', '-', None]:
+            checker = CodingChecker(None, input)
+            checker.encodings = ['latin-1', 'utf-8']
+            ret = list(checker.run())
+            self.assertEqual(len(ret), 1)
+            self.assertEqual(ret[0][0], 0)
+            self.assertEqual(ret[0][1], 0)
+            self.assertTrue(ret[0][2].startswith('C101 '))
 
 
 if __name__ == '__main__':

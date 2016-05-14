@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.1.2 (not released yet)
+------------------------
+* Fix a bug
+
+  - #4 stdin not supported
+
 1.1.1 (2015-10-25)
 ------------------
 * Fix a bug
