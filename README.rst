@@ -10,7 +10,7 @@ Flake8 Coding plugin
 .. image:: https://codeclimate.com/github/tk0miya/flake8-coding/badges/gpa.svg
    :target: https://codeclimate.com/github/tk0miya/flake8-coding
    :alt: Code Climate
-   
+
 
 Checks for coding magic comment (``coding:``) in all python files.
 
