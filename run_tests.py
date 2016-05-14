@@ -71,25 +71,21 @@ class TestFlake8Coding(unittest.TestCase):
         self.assertEqual(ret[0][1], 0)
         self.assertTrue(ret[0][2].startswith('C101 '))
 
+    @patch.object(sys, 'argv', [])
     def test_default_encoding(self):
         try:
-            _argv = sys.argv
-            sys.argv = []
             get_style_guide(parse_argv=True)  # parse arguments
             self.assertEqual(CodingChecker.encodings, ['latin-1', 'utf-8'])
         finally:
-            sys.argv = _argv
             if hasattr(CodingChecker, 'encodings'):
                 del CodingChecker.encodings
 
+    @patch.object(sys, 'argv', ['', '--accept-encodings=utf-8,utf-16'])
     def test_change_encoding(self):
         try:
-            _argv = sys.argv
-            sys.argv = ['', '--accept-encodings=utf-8,utf-16']
             get_style_guide(parse_argv=True)  # parse arguments
             self.assertEqual(CodingChecker.encodings, ['utf-8', 'utf-16'])
         finally:
-            sys.argv = _argv
             if hasattr(CodingChecker, 'encodings'):
                 del CodingChecker.encodings
 
