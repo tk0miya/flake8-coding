@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import re
-import pep8
 
 __version__ = '1.1.1'
 
@@ -26,6 +25,7 @@ class CodingChecker(object):
         cls.encodings = [e.strip().lower() for e in options.accept_encodings.split(',')]
 
     def read_headers(self):
+        import pep8
         if self.filename in ('stdin', '-', None):
             return pep8.stdin_get_value().splitlines(True)[:2]
         else:
