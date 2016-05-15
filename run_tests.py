@@ -103,6 +103,29 @@ class TestFlake8Coding(unittest.TestCase):
             self.assertEqual(ret[0][1], 0)
             self.assertTrue(ret[0][2].startswith('C101 '))
 
+    @patch.object(sys, 'argv', ['', '--no-accept-encodings'])
+    def test_no_accept_encodings_sets_encodings_none(self):
+        try:
+            get_style_guide(parse_argv=True)  # parse arguments
+            self.assertTrue(CodingChecker.encodings is None)
+        finally:
+            if hasattr(CodingChecker, 'encodings'):
+                del CodingChecker.encodings
+
+    def test_encoding_none_with_no_coding_comment(self):
+        checker = CodingChecker(None, 'testsuite/nocoding.py')
+        checker.encodings = None
+        ret = list(checker.run())
+        self.assertEqual(ret, [])
+
+    def test_encoding_none_with_coding_comment(self):
+        checker = CodingChecker(None, 'testsuite/utf8.py')
+        checker.encodings = None
+        ret = list(checker.run())
+        self.assertEqual(len(ret), 1)
+        self.assertEqual(ret[0][0], 1)
+        self.assertEqual(ret[0][1], 0)
+        self.assertTrue(ret[0][2].startswith('C103 '))
 
 if __name__ == '__main__':
     unittest.main()

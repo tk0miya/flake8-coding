@@ -19,10 +19,18 @@ class CodingChecker(object):
             help="Acceptable source code encodings for `coding:` magic comment"
         )
         parser.config_options.append('accept-encodings')
+        parser.add_option(
+            '--no-accept-encodings', action='store_true',
+            help="Warn for files containing a `coding:` magic comment"
+        )
+        parser.config_options.append('no-accept-encodings')
 
     @classmethod
     def parse_options(cls, options):
-        cls.encodings = [e.strip().lower() for e in options.accept_encodings.split(',')]
+        if options.no_accept_encodings:
+            cls.encodings = None
+        else:
+            cls.encodings = [e.strip().lower() for e in options.accept_encodings.split(',')]
 
     def read_headers(self):
         import pep8
@@ -42,10 +50,14 @@ class CodingChecker(object):
                 for lineno, line in enumerate(lines, start=1):
                     matched = re.search('coding[:=]\s*([-\w.]+)', line, re.IGNORECASE)
                     if matched:
-                        if matched.group(1).lower() not in self.encodings:
-                            yield lineno, 0, "C102 Unknown encoding found in coding magic comment", type(self)
+                        if self.encodings:
+                            if matched.group(1).lower() not in self.encodings:
+                                yield lineno, 0, "C102 Unknown encoding found in coding magic comment", type(self)
+                        else:
+                            yield lineno, 0, "C103 Coding magic comment present", type(self)
                         break
                 else:
-                    yield 0, 0, "C101 Coding magic comment not found", type(self)
+                    if self.encodings:
+                        yield 0, 0, "C101 Coding magic comment not found", type(self)
         except IOError:
             pass
