@@ -91,7 +91,8 @@ class TestFlake8Coding(unittest.TestCase):
 
     @patch('pep8.stdin_get_value')
     def test_stdin(self, stdin_get_value):
-        stdin_get_value.return_value = open('testsuite/nocodings.py').read()
+        with open('testsuite/nocodings.py') as fp:
+            stdin_get_value.return_value = fp.read()
 
         for input in ['stdin', '-', None]:
             checker = CodingChecker(None, input)
