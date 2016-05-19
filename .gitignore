@@ -4,5 +4,6 @@
 .coverage
 .tox/
 bin/
+dist/
 include/
 lib/
