@@ -1,14 +1,29 @@
 # -*- coding: utf-8 -*-
+import re
 
 from setuptools import setup
-from flake8_coding import __version__
+
+
+def get_version(filename):
+    """
+    Return package version as listed in `__version__` in `filename`.
+    """
+    init_py = open(filename).read()
+    return re.search("__version__ = ['\"]([^'\"]+)['\"]", init_py).group(1)
+
+
+version = get_version('flake8_coding.py')
+
+
+with open('README.rst') as readme_file:
+    readme = readme_file.read()
 
 
 setup(
     name='flake8-coding',
-    version=__version__,
+    version=version,
     description='Adds coding magic comment checks to flake8',
-    long_description=open("README.rst").read(),
+    long_description=readme,
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Programming Language :: Python',

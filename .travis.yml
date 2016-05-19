@@ -6,9 +6,10 @@ env:
     - TOXENV=py27
     - TOXENV=py33
     - TOXENV=py34
+    - TOXENV=py34-check
     - TOXENV=coverage
 cache:
   directories:
     - $HOME/.cache/pip
-install: pip install docutils tox
+install: pip install tox
 script: tox
