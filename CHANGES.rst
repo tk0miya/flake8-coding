@@ -1,12 +1,15 @@
 Changelog
 =========
 
-1.1.2 (not released yet)
-------------------------
+1.2.1 (2016-05-20)
+------------------
 * Add option `no-accept-encodings`. If set, will warn for files containing a `coding:` magic comment.
 * Fix a bug
 
   - #4 stdin not supported
+
+1.2.0 (not released)
+--------------------
 
 1.1.1 (2015-10-25)
 ------------------
