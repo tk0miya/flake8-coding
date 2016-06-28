@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.2.2 (2016-06-28)
+------------------
+* Fix a bug
+
+  - Could not work under flake8 >= 3.0
+
 1.2.1 (2016-05-20)
 ------------------
 * Add option `no-accept-encodings`. If set, will warn for files containing a `coding:` magic comment.
