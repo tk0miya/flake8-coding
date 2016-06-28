@@ -18,12 +18,14 @@ class CodingChecker(object):
             '--accept-encodings', default='latin-1, utf-8', action='store',
             help="Acceptable source code encodings for `coding:` magic comment"
         )
-        parser.config_options.append('accept-encodings')
         parser.add_option(
             '--no-accept-encodings', action='store_true',
             help="Warn for files containing a `coding:` magic comment"
         )
-        parser.config_options.append('no-accept-encodings')
+
+        if hasattr(parser, 'config_options'):  # for flake8 < 3.0
+            parser.config_options.append('accept-encodings')
+            parser.config_options.append('no-accept-encodings')
 
     @classmethod
     def parse_options(cls, options):
@@ -33,7 +35,12 @@ class CodingChecker(object):
             cls.encodings = [e.strip().lower() for e in options.accept_encodings.split(',')]
 
     def read_headers(self):
-        import pep8
+        try:
+            # flake8 >= v3.0
+            import pycodestyle as pep8
+        except ImportError:
+            import pep8
+
         if self.filename in ('stdin', '-', None):
             return pep8.stdin_get_value().splitlines(True)[:2]
         else:

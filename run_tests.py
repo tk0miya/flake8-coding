@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
-import sys
 import unittest
 from mock import patch
+from collections import namedtuple
 from flake8_coding import CodingChecker
-from flake8.engine import get_style_guide
+
+
+Options = namedtuple('Options', 'no_accept_encodings, accept_encodings')
 
 
 class TestFlake8Coding(unittest.TestCase):
@@ -71,42 +73,49 @@ class TestFlake8Coding(unittest.TestCase):
         self.assertEqual(ret[0][1], 0)
         self.assertTrue(ret[0][2].startswith('C101 '))
 
-    @patch.object(sys, 'argv', [])
     def test_default_encoding(self):
         try:
-            get_style_guide(parse_argv=True)  # parse arguments
+            options = Options(False, 'latin-1, utf-8')
+            CodingChecker.parse_options(options)
             self.assertEqual(CodingChecker.encodings, ['latin-1', 'utf-8'])
         finally:
             if hasattr(CodingChecker, 'encodings'):
                 del CodingChecker.encodings
 
-    @patch.object(sys, 'argv', ['', '--accept-encodings=utf-8,utf-16'])
     def test_change_encoding(self):
         try:
-            get_style_guide(parse_argv=True)  # parse arguments
+            options = Options(False, 'utf-8,utf-16')
+            CodingChecker.parse_options(options)
             self.assertEqual(CodingChecker.encodings, ['utf-8', 'utf-16'])
         finally:
             if hasattr(CodingChecker, 'encodings'):
                 del CodingChecker.encodings
 
-    @patch('pep8.stdin_get_value')
-    def test_stdin(self, stdin_get_value):
-        with open('testsuite/nocodings.py') as fp:
-            stdin_get_value.return_value = fp.read()
+    def test_stdin(self):
+        try:
+            import pycodestyle as pep8  # noqa
+            target = 'pycodestyle.stdin_get_value'
+        except ImportError:
+            import pep8  # noqa
+            target = 'pep8.stdin_get_value'
 
-        for input in ['stdin', '-', None]:
-            checker = CodingChecker(None, input)
-            checker.encodings = ['latin-1', 'utf-8']
-            ret = list(checker.run())
-            self.assertEqual(len(ret), 1)
-            self.assertEqual(ret[0][0], 0)
-            self.assertEqual(ret[0][1], 0)
-            self.assertTrue(ret[0][2].startswith('C101 '))
+        with patch(target) as stdin_get_value:
+            with open('testsuite/nocodings.py') as fp:
+                stdin_get_value.return_value = fp.read()
 
-    @patch.object(sys, 'argv', ['', '--no-accept-encodings'])
+            for input in ['stdin', '-', None]:
+                checker = CodingChecker(None, input)
+                checker.encodings = ['latin-1', 'utf-8']
+                ret = list(checker.run())
+                self.assertEqual(len(ret), 1)
+                self.assertEqual(ret[0][0], 0)
+                self.assertEqual(ret[0][1], 0)
+                self.assertTrue(ret[0][2].startswith('C101 '))
+
     def test_no_accept_encodings_sets_encodings_none(self):
         try:
-            get_style_guide(parse_argv=True)  # parse arguments
+            options = Options(True, 'latin-1,utf-8')
+            CodingChecker.parse_options(options)
             self.assertTrue(CodingChecker.encodings is None)
         finally:
             if hasattr(CodingChecker, 'encodings'):
