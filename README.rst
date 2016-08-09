@@ -59,7 +59,7 @@ You can pass this as a command-line argument to ``flake8``, e.g.
 .. code-block:: ini
 
     [flake8]
-    no-accept-encodings
+    no-accept-encodings = True
 
 Rules
 -----
