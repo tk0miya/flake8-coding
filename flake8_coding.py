@@ -19,7 +19,7 @@ class CodingChecker(object):
             help="Acceptable source code encodings for `coding:` magic comment"
         )
         parser.add_option(
-            '--no-accept-encodings', action='store_true',
+            '--no-accept-encodings', action='store_true', parse_from_config=True,
             help="Warn for files containing a `coding:` magic comment"
         )
 
