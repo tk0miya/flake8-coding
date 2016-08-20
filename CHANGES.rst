@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.3.0 (2016-08-20)
+------------------
+* Drop Python 2.6 support
+* Fix a bug
+
+  - Fix no-accept-encodings to work in config files
+
 1.2.2 (2016-06-28)
 ------------------
 * Fix a bug
