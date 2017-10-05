@@ -4,7 +4,7 @@ Flake8 Coding plugin
 .. image:: https://travis-ci.org/tk0miya/flake8-coding.svg?branch=master
    :target: https://travis-ci.org/tk0miya/flake8-coding
 
-.. image:: https://coveralls.io/repos/tk0miya/flake8-coding/badge.png?branch=master
+.. image:: https://coveralls.io/repos/tk0miya/flake8-coding/badge.svg?branch=master
    :target: https://coveralls.io/r/tk0miya/flake8-coding?branch=master
 
 .. image:: https://codeclimate.com/github/tk0miya/flake8-coding/badges/gpa.svg
