@@ -136,5 +136,6 @@ class TestFlake8Coding(unittest.TestCase):
         self.assertEqual(ret[0][1], 0)
         self.assertTrue(ret[0][2].startswith('C103 '))
 
+
 if __name__ == '__main__':
     unittest.main()
