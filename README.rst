@@ -86,7 +86,7 @@ file.
 Requirements
 -------------
 
-* Python 2.7, 3.3, 3.4
+* Python 2.7, 3.4
 * flake8
 
 License
