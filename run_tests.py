@@ -93,11 +93,11 @@ class TestFlake8Coding(unittest.TestCase):
 
     def test_stdin(self):
         try:
-            import pycodestyle as pep8  # noqa
-            target = 'pycodestyle.stdin_get_value'
+            from flake8.engine import pep8 as stdin_utils  # noqa
+            target = 'flake8.engine.pep8.stdin_get_value'
         except ImportError:
-            import pep8  # noqa
-            target = 'pep8.stdin_get_value'
+            from flake8 import utils as stdin_utils # noqa
+            target = 'flake8.utils.stdin_get_value'
 
         with patch(target) as stdin_get_value:
             with open('testsuite/nocodings.py') as fp:
