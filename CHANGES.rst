@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.3.1 (2016-09-09)
+------------------
+* Fix bugs
+
+  - #14 Can't read from stdin using flake8-coding and flake8-print at the same time
+  - #16 flake8-coding fails on python 3.7 with "RuntimeError: generator raised StopIteration"
+
 1.3.0 (2016-08-20)
 ------------------
 * Drop Python 2.6 support
