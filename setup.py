@@ -35,7 +35,7 @@ setup(
         'Topic :: Software Development',
     ],
     author='Takeshi KOMIYA',
-    author_email='i.tkomiya at gmail.com',
+    author_email='i.tkomiya@gmail.com',
     url='https://github.com/tk0miya/flake8-coding',
     license='Apache License 2.0',
     keywords='pep8 flake8 coding',
