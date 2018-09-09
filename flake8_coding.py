@@ -48,23 +48,23 @@ class CodingChecker(object):
 
     def run(self):
         try:
-                # PEP-263 says: a magic comment must be placed into the source
-                #               files either as first or second line in the file
-                lines = self.read_headers()
-                if len(lines) == 0:
-                    raise StopIteration()
+            # PEP-263 says: a magic comment must be placed into the source
+            #               files either as first or second line in the file
+            lines = self.read_headers()
+            if len(lines) == 0:
+                return
 
-                for lineno, line in enumerate(lines, start=1):
-                    matched = re.search('coding[:=]\s*([-\w.]+)', line, re.IGNORECASE)
-                    if matched:
-                        if self.encodings:
-                            if matched.group(1).lower() not in self.encodings:
-                                yield lineno, 0, "C102 Unknown encoding found in coding magic comment", type(self)
-                        else:
-                            yield lineno, 0, "C103 Coding magic comment present", type(self)
-                        break
-                else:
+            for lineno, line in enumerate(lines, start=1):
+                matched = re.search('coding[:=]\s*([-\w.]+)', line, re.IGNORECASE)
+                if matched:
                     if self.encodings:
-                        yield 0, 0, "C101 Coding magic comment not found", type(self)
+                        if matched.group(1).lower() not in self.encodings:
+                            yield lineno, 0, "C102 Unknown encoding found in coding magic comment", type(self)
+                    else:
+                        yield lineno, 0, "C103 Coding magic comment present", type(self)
+                    break
+            else:
+                if self.encodings:
+                    yield 0, 0, "C101 Coding magic comment not found", type(self)
         except IOError:
             pass
