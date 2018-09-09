@@ -1,15 +1,21 @@
 language: python
-python: 2.7
-env:
-  matrix:
-    - TOXENV=py27
-    - TOXENV=py34
-    - TOXENV=py35
-    - TOXENV=py36
-    - TOXENV=py36-check
-    - TOXENV=coverage
-cache:
-  directories:
-    - $HOME/.cache/pip
+sudo: false
+dist: trusty
+cache: pip
+
+matrix:
+  include:
+    - python: 2.7
+      env: TOXENV=py27
+    - python: 3.4
+      env: TOXENV=py34
+    - python: 3.5
+      env: TOXENV=py35
+    - python: 3.6
+      env: TOXENV=py36
+    - python: 3.6
+      env: TOXENV=py36-check
+    - python: 2.7
+      env: TOXENV=coverage
 install: pip install tox
 script: tox
