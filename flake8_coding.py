@@ -35,16 +35,19 @@ class CodingChecker(object):
             cls.encodings = [e.strip().lower() for e in options.accept_encodings.split(',')]
 
     def read_headers(self):
-        try:
-            # flake8 >= v3.0
-            import pycodestyle as pep8
-        except ImportError:
-            import pep8
-
         if self.filename in ('stdin', '-', None):
-            return pep8.stdin_get_value().splitlines(True)[:2]
+            try:
+                # flake8 >= v3.0
+                from flake8.engine import pep8 as stdin_utils
+            except ImportError:
+                from flake8 import utils as stdin_utils
+            return stdin_utils.stdin_get_value().splitlines(True)[:2]
         else:
-            return pep8.readlines(self.filename)[:2]
+            try:
+                import pycodestyle
+            except ImportError:
+                import pep8 as pycodestyle
+            return pycodestyle.readlines(self.filename)[:2]
 
     def run(self):
         try:
