@@ -58,7 +58,7 @@ class CodingChecker(object):
                 return
 
             for lineno, line in enumerate(lines, start=1):
-                matched = re.search('coding[:=]\s*([-\w.]+)', line, re.IGNORECASE)
+                matched = re.search(r'coding[:=]\s*([-\w.]+)', line, re.IGNORECASE)
                 if matched:
                     if self.encodings:
                         if matched.group(1).lower() not in self.encodings:

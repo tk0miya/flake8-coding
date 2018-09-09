@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import unittest
-from mock import patch
 from collections import namedtuple
+
 from flake8_coding import CodingChecker
+
+from mock import patch
 
 
 Options = namedtuple('Options', 'no_accept_encodings, accept_encodings')
