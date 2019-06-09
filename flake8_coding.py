@@ -68,6 +68,6 @@ class CodingChecker(object):
                     break
             else:
                 if self.encodings:
-                    yield 0, 0, "C101 Coding magic comment not found", type(self)
+                    yield 1, 0, "C101 Coding magic comment not found", type(self)
         except IOError:
             pass

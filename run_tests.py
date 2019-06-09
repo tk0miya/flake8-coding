@@ -47,7 +47,7 @@ class TestFlake8Coding(unittest.TestCase):
         checker.encodings = ['latin-1', 'utf-8']
         ret = list(checker.run())
         self.assertEqual(len(ret), 1)
-        self.assertEqual(ret[0][0], 0)
+        self.assertEqual(ret[0][0], 1)
         self.assertEqual(ret[0][1], 0)
         self.assertTrue(ret[0][2].startswith('C101 '))
 
@@ -71,7 +71,7 @@ class TestFlake8Coding(unittest.TestCase):
         checker.encodings = ['latin-1', 'utf-8']
         ret = list(checker.run())
         self.assertEqual(len(ret), 1)
-        self.assertEqual(ret[0][0], 0)
+        self.assertEqual(ret[0][0], 1)
         self.assertEqual(ret[0][1], 0)
         self.assertTrue(ret[0][2].startswith('C101 '))
 
@@ -110,7 +110,7 @@ class TestFlake8Coding(unittest.TestCase):
                 checker.encodings = ['latin-1', 'utf-8']
                 ret = list(checker.run())
                 self.assertEqual(len(ret), 1)
-                self.assertEqual(ret[0][0], 0)
+                self.assertEqual(ret[0][0], 1)
                 self.assertEqual(ret[0][1], 0)
                 self.assertTrue(ret[0][2].startswith('C101 '))
 
