@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.3.2 (2019-06-16)
+------------------
+* Fix a bug
+
+  - #18 Use first line number for C101 message
+
 1.3.1 (2016-09-09)
 ------------------
 * Fix bugs
